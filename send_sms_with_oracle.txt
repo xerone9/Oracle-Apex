@@ -1,0 +1,14 @@
+DECLARE
+    l_url VARCHAR2(4000) := 'https://kuickpay.rubick.org/kuickpay_sms/?stu_id=3447-2016&stu_name=Usman%20Mustafa%20Khawar&stu_voucher=9293477&stu_amount=25000&stu_due_date=01-Feb-2024&stu_cell_number=03009293477';
+    l_response VARCHAR2(32767); -- Use VARCHAR2 instead of CLOB
+BEGIN
+    l_response := apex_web_service.make_rest_request(
+        p_url => l_url,
+        p_http_method => 'GET'
+    );
+    DBMS_OUTPUT.PUT_LINE('Response: ' || l_response);
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/

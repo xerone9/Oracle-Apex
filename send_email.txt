@@ -1,0 +1,22 @@
+DECLARE
+    l_id NUMBER;
+BEGIN
+    l_id := APEX_MAIL.SEND(
+        p_to        => 'accountofficer-2@indus.edu.pk',
+        p_from      => 'indus@rubick.org',
+        p_subj      => 'Test Email',
+        p_body      => '',
+        p_body_html => '<b>Please</b><br>review the attachment');
+    FOR c1 IN (SELECT filename, blob_content, mime_type 
+        FROM APEX_APPLICATION_FILES
+        WHERE ID IN (123,456)) LOOP
+
+        APEX_MAIL.ADD_ATTACHMENT(
+            p_mail_id    => l_id,
+            p_attachment => c1.blob_content,
+            p_filename   => c1.filename,
+            p_mime_type  => c1.mime_type);
+        END LOOP;
+    COMMIT;
+END;
+/
