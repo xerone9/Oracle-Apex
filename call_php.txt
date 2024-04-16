@@ -1,0 +1,1 @@
+select utl_http.request('http://indus.rubick.org/test/cms_email.php?email=xerone.9@gmail.com&code=456789') from dual
